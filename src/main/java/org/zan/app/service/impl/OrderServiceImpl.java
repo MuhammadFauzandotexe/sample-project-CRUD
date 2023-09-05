@@ -5,14 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.zan.app.entity.Item;
 import org.zan.app.entity.Order;
-import org.zan.app.model.request.OrderRequest;
-import org.zan.app.model.request.OrderUpdateRequest;
+import org.zan.app.dto.OrderRequestDTO;
+import org.zan.app.dto.OrderUpdateDTO;
 import org.zan.app.repository.ItemRepository;
 import org.zan.app.repository.OrderRepository;
 import org.zan.app.service.ItemService;
 import org.zan.app.service.OrderService;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -24,18 +23,13 @@ public class OrderServiceImpl implements OrderService {
     private final ItemRepository itemRepository;
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public Order create(OrderRequest orderRequest) {
-        log.info("Start creating order");
+    public Order create(OrderRequestDTO orderRequestDTO) {
+        Optional<Item> item  = itemRepository.findById(orderRequestDTO.getItemId());
         Order order = new Order();
-        order.setOrderNo(orderRequest.getOrderNo());
-        Optional<Item> itemOptional = itemService.findById(orderRequest.getItemId());
-        if (itemOptional.isEmpty()) {
-            throw new RuntimeException("Item Not Found");
-        }
-        Order orderCreated = orderRepository.saveAndFlush(order);
-        log.info("Success creating order with id: " + orderCreated.getId());
-        itemOptional.get().setOrders(orderCreated);
-        return orderCreated;
+        order.setOrderNo(orderRequestDTO.getOrderNo());
+        order.setItems(List.of(item.get()));
+        Order order1 = orderRepository.saveAndFlush(order);
+        return order1;
     }
 
 
@@ -53,11 +47,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackOn = Exception.class)
-    public Order update(OrderUpdateRequest orderUpdateRequest) {
-        log.info("start update order with id: "+orderUpdateRequest.getId());
-        Optional<Order> order = findById(orderUpdateRequest.getId());
+    public Order update(OrderUpdateDTO orderUpdateDTO) {
+        log.info("start update order with id: "+ orderUpdateDTO.getId());
+        Optional<Order> order = findById(orderUpdateDTO.getId());
         if (order.isPresent()){
-            Optional<Item> item = itemService.findById(orderUpdateRequest.getItemId());
+            Optional<Item> item = itemService.findById(orderUpdateDTO.getItemId());
             orderRepository.save(order.get());
             log.info("success update with id: "+order.get().getId());
         }

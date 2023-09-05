@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.zan.app.dto.ItemUpdateDTO;
 import org.zan.app.entity.Item;
-import org.zan.app.model.request.ItemRequest;
-import org.zan.app.model.response.CommonResponse;
+import org.zan.app.dto.ItemRequestDTO;
+import org.zan.app.dto.CommonResponseDTO;
 import org.zan.app.service.ItemService;
 import java.util.List;
 import java.util.Optional;
@@ -18,24 +19,24 @@ import java.util.Optional;
 public class ItemController {
     private final ItemService itemService;
     @PostMapping
-    public ResponseEntity<CommonResponse<Item>> create(@RequestBody ItemRequest itemRequest){
-        Item item = itemService.create(itemRequest);
+    public ResponseEntity<CommonResponseDTO<Item>> create(@RequestBody ItemRequestDTO itemRequestDTO){
+        Item item = itemService.create(itemRequestDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(
-                        CommonResponse.<Item>builder()
+                        CommonResponseDTO.<Item>builder()
                                 .statusCode(HttpStatus.CREATED.value())
                                 .message("Item created")
                                 .data(item)
                                 .build());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<CommonResponse<Item>> getById(@PathVariable Integer id){
+    public ResponseEntity<CommonResponseDTO<Item>> getById(@PathVariable Integer id){
         Optional<Item> item = itemService.findById(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
-                        CommonResponse.<Item>builder()
+                        CommonResponseDTO.<Item>builder()
                                 .statusCode(HttpStatus.OK.value())
                                 .message("Success")
                                 .data(item.get())
@@ -43,12 +44,12 @@ public class ItemController {
                 );
     }
     @GetMapping("/all")
-    public ResponseEntity<CommonResponse<List<Item>>> getAll(){
+    public ResponseEntity<CommonResponseDTO<List<Item>>> getAll(){
         List<Item> items = itemService.getAll();
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
-                        CommonResponse.<List<Item>>builder()
+                        CommonResponseDTO.<List<Item>>builder()
                                 .statusCode(HttpStatus.OK.value())
                                 .message("Success")
                                 .data(items)
@@ -56,12 +57,12 @@ public class ItemController {
                 );
     }
     @PutMapping()
-    public ResponseEntity<CommonResponse<Item>> update(@RequestBody Item item){
+    public ResponseEntity<CommonResponseDTO<Item>> update(@RequestBody ItemUpdateDTO item){
         Item update = itemService.update(item);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(
-                        CommonResponse.<Item>builder()
+                        CommonResponseDTO.<Item>builder()
                                 .message("Success update")
                                 .data(update)
                                 .build()

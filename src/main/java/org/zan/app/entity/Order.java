@@ -19,9 +19,16 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_sequence")
     private Integer id;
     private String orderNo;
-    @OneToMany(mappedBy = "orders",fetch = FetchType.EAGER)
+
+    @ManyToMany
+    @JoinTable(
+            name = "order_item",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
     @JsonManagedReference
     private List<Item> items = new ArrayList<>();
 }
+
 
 

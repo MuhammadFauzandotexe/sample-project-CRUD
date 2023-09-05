@@ -1,15 +1,13 @@
 package org.zan.app.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.zan.app.entity.Item;
 import org.zan.app.entity.Order;
-import org.zan.app.model.request.OrderRequest;
-import org.zan.app.model.request.OrderUpdateRequest;
-import org.zan.app.model.response.CommonResponse;
+import org.zan.app.dto.OrderRequestDTO;
+import org.zan.app.dto.OrderUpdateDTO;
+import org.zan.app.dto.CommonResponseDTO;
 import org.zan.app.repository.OrderRepository;
 import org.zan.app.service.OrderService;
 
@@ -23,12 +21,12 @@ public class OrderController {
     private final OrderService orderService;
     private final OrderRepository orderRepository;
     @PostMapping
-    public ResponseEntity<CommonResponse<Order>> create(@RequestBody OrderRequest orderRequest){
-        Order order = orderService.create(orderRequest);
+    public ResponseEntity<CommonResponseDTO<Order>> create(@RequestBody OrderRequestDTO orderRequestDTO){
+        Order order = orderService.create(orderRequestDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(
-                        CommonResponse.<Order>builder()
+                        CommonResponseDTO.<Order>builder()
                                 .statusCode(HttpStatus.CREATED.value())
                                 .message("Success")
                                 .data(order)
@@ -36,11 +34,11 @@ public class OrderController {
                 );
     }
     @GetMapping("/all")
-    public ResponseEntity<CommonResponse<?>> getAll(){
+    public ResponseEntity<CommonResponseDTO<?>> getAll(){
         return ResponseEntity
                 .status(HttpStatus.OK.value())
                 .body(
-                        CommonResponse.<List<Order>>builder()
+                        CommonResponseDTO.<List<Order>>builder()
                                 .statusCode(HttpStatus.OK.value())
                                 .message("Success")
                                 .data(orderService.getAll())
@@ -48,11 +46,11 @@ public class OrderController {
                 );
     }
     @GetMapping("{id}")
-    public ResponseEntity<CommonResponse<Optional<Order>>> getByid(@PathVariable Integer id){
+    public ResponseEntity<CommonResponseDTO<Optional<Order>>> getByid(@PathVariable Integer id){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
-                        CommonResponse.<Optional<Order>>builder()
+                        CommonResponseDTO.<Optional<Order>>builder()
                                 .statusCode(HttpStatus.OK.value())
                                 .message("Success")
                                 .data(orderService.findById(id))
@@ -60,12 +58,12 @@ public class OrderController {
                 );
     }
     @PutMapping
-    public ResponseEntity<CommonResponse<Order>> update(@RequestBody OrderUpdateRequest orderUpdateRequest){
-        Order update = orderService.update(orderUpdateRequest);
+    public ResponseEntity<CommonResponseDTO<Order>> update(@RequestBody OrderUpdateDTO orderUpdateDTO){
+        Order update = orderService.update(orderUpdateDTO);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
-                        CommonResponse.<Order>builder()
+                        CommonResponseDTO.<Order>builder()
                                 .statusCode(HttpStatus.OK.value())
                                 .message("success update")
                                 .data(update)

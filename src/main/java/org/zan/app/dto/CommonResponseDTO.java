@@ -1,11 +1,11 @@
-package org.zan.app.model.response;
+package org.zan.app.dto;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder(toBuilder = true)
-public class CommonResponse<T> {
+public class CommonResponseDTO<T> {
     private Integer statusCode;
     private String message;
     private T data;

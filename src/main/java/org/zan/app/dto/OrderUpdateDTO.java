@@ -1,10 +1,10 @@
-package org.zan.app.model.request;
+package org.zan.app.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class OrderUpdateRequest {
+public class OrderUpdateDTO {
     private Integer id;
     @JsonProperty("item_id")
     private Integer itemId;
