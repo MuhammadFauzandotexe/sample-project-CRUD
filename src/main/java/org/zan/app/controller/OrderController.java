@@ -10,6 +10,7 @@ import org.zan.app.entity.Order;
 import org.zan.app.model.request.OrderRequest;
 import org.zan.app.model.request.OrderUpdateRequest;
 import org.zan.app.model.response.CommonResponse;
+import org.zan.app.repository.OrderRepository;
 import org.zan.app.service.OrderService;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class OrderController {
     private final OrderService orderService;
+    private final OrderRepository orderRepository;
     @PostMapping
     public ResponseEntity<CommonResponse<Order>> create(@RequestBody OrderRequest orderRequest){
         Order order = orderService.create(orderRequest);
@@ -34,7 +36,7 @@ public class OrderController {
                 );
     }
     @GetMapping("/all")
-    public ResponseEntity<CommonResponse<List<Order>>> getAll(){
+    public ResponseEntity<CommonResponse<?>> getAll(){
         return ResponseEntity
                 .status(HttpStatus.OK.value())
                 .body(

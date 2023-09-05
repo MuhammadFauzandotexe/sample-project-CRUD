@@ -4,9 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.zan.app.entity.Item;
+import org.zan.app.entity.Order;
 import org.zan.app.model.request.ItemRequest;
 import org.zan.app.repository.ItemRepository;
+import org.zan.app.repository.OrderRepository;
 import org.zan.app.service.ItemService;
+import org.zan.app.service.OrderService;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,15 +19,16 @@ import java.util.Optional;
 @Slf4j
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
+    private final OrderRepository orderRepository;
     @Override
     public Item create(ItemRequest itemRequest) {
-        log.info("create item");
+        log.info("Creating item");
         Item item = new Item();
         item.setName(itemRequest.getName());
         item.setPrice(itemRequest.getPrice());
-        Item itemCrated = itemRepository.saveAndFlush(item);
-        log.info("success crate item with id: "+itemCrated.getId());
-        return itemCrated;
+        Item createdItem = itemRepository.save(item);
+        log.info("Item created with id: " + createdItem.getId());
+        return createdItem;
     }
     @Override
     public List<Item> getAll() {
