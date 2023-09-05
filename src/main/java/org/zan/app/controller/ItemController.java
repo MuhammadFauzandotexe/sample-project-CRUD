@@ -15,7 +15,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/item")
 @AllArgsConstructor
-
 public class ItemController {
     private final ItemService itemService;
     @PostMapping
@@ -63,6 +62,7 @@ public class ItemController {
                 .status(HttpStatus.CREATED)
                 .body(
                         CommonResponseDTO.<Item>builder()
+                                .statusCode(HttpStatus.OK.value())
                                 .message("Success update")
                                 .data(update)
                                 .build()

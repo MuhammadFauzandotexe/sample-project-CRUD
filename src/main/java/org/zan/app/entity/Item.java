@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "m_item")
+@Table(name = "m_items")
 @SequenceGenerator(name = "item_sequence", sequenceName = "item_sequence")
 @Data
 public class Item {
