@@ -6,22 +6,28 @@ import org.springframework.stereotype.Service;
 import org.zan.app.dto.ItemUpdateDTO;
 import org.zan.app.entity.Item;
 import org.zan.app.dto.ItemRequestDTO;
+import org.zan.app.exception.SampleAppException;
 import org.zan.app.repository.ItemRepository;
 import org.zan.app.service.ItemService;
 
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * This is the implementation class for the item service.
+ * This class provides the implementation of the {@link ItemService} interface
+ * and is used to manage operations related to items such as creating, fetching,
+ * updating, and deleting items.
+ *
+ * @author Muhammad Fauzan
+ */
 @Service
 @AllArgsConstructor
 @Slf4j
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
     /**
-     * Creates a new item based on the data from the ItemRequestDTO.
-     *
-     * @param itemRequestDTO Information for the new item.
-     * @return The newly created item.
+     * {@inheritDoc}
      */
     @Override
     public Item create(ItemRequestDTO itemRequestDTO) {
@@ -32,9 +38,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     /**
-     * Retrieves all items from the database.
-     *
-     * @return A list of all items.
+     * {@inheritDoc}
      */
     @Override
     public List<Item> getAll() {
@@ -43,10 +47,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     /**
-     * Retrieves an item by its ID.
-     *
-     * @param id The ID of the item to be retrieved.
-     * @return The item found (if any).
+     * {@inheritDoc}
+     * @throws SampleAppException if the item with the given ID is not found.
      */
     @Override
     public Optional<Item> findById(Integer id) {
@@ -54,24 +56,21 @@ public class ItemServiceImpl implements ItemService {
         Optional<Item> item = itemRepository.findById(id);
         if(item.isEmpty()){
             log.error("item not found with ID: "+id);
-            throw new RuntimeException("item not found with ID: "+id);
+            throw new SampleAppException("item not found with ID: "+id);
         }
         return item;
     }
 
     /**
-     * Updates an item based on the information from the ItemUpdateDTO.
-     *
-     * @param itemUpdateDTO Information for the item to be updated.
-     * @return The updated item.
+     * {@inheritDoc}
+     * @throws SampleAppException if the item with the given ID is not found.
      */
     @Override
     public Item update(ItemUpdateDTO itemUpdateDTO) {
         log.info("start update item with ID: "+ itemUpdateDTO.getId());
         Optional<Item> itemOptional = findById(itemUpdateDTO.getId());
         if (itemOptional.isEmpty()){
-            log.error("item not found with ID: "+itemUpdateDTO.getId());
-            throw new RuntimeException("item not found with ID: "+itemUpdateDTO.getId());
+            throw new SampleAppException("item not found with ID: "+itemUpdateDTO.getId());
         }
         itemOptional.get().setName(itemUpdateDTO.getName());
         itemOptional.get().setPrice(itemUpdateDTO.getPrice());
@@ -81,17 +80,15 @@ public class ItemServiceImpl implements ItemService {
     }
     
     /**
-     * Deletes an item by its ID.
-     *
-     * @param id The ID of the item to be deleted.
+     * {@inheritDoc}
+     * @throws SampleAppException if the item with the given ID is not found.
      */
     @Override
     public void delete(Integer id) {
         log.info("start delete item with ID: "+id);
         Optional<Item> item = findById(id);
         if(item.isEmpty()){
-            log.error("item not found with ID: "+id);
-            throw new RuntimeException("item not found with ID: "+id);
+            throw new SampleAppException("item not found with ID: "+id);
         }
         itemRepository.deleteById(id);
         log.info("success delete item with ID: "+id);

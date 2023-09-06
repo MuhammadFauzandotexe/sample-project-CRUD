@@ -19,8 +19,8 @@ public class CustomExceptionHandler {
                         .build()
         );
     }
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<CommonResponseDTO<?>> handleRuntimeException(RuntimeException e){
+    @ExceptionHandler(SampleAppException.class)
+    public ResponseEntity<CommonResponseDTO<?>> handleSampleAppException(RuntimeException e){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 CommonResponseDTO
                         .builder()
