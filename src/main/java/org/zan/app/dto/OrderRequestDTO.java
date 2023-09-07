@@ -4,19 +4,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Data Transfer Object (DTO) representing an order request.
  * It includes information such as the item ID, quantity, and order number.
  */
-@Data
+@Getter
+@Setter
 public class OrderRequestDTO {
 
     /**
      * The ID of the item to be ordered.
      */
     @JsonProperty("item_id")
-    private Integer itemId;
+    private String itemId;
 
     /**
      * The quantity of the item to be ordered. It should be a non-negative integer.

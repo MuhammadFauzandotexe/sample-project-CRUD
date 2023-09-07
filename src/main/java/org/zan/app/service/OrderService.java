@@ -28,7 +28,7 @@ public interface OrderService {
      * @param id The ID of the order to be retrieved.
      * @return The order found (if any).
      */
-    Optional<Order> findById(Integer id);
+    Optional<Order> findById(String id);
 
     /**
      * Updates an order based on the information from the OrderUpdateDTO.
@@ -42,6 +42,6 @@ public interface OrderService {
      *
      * @param id The ID of the order to be deleted.
      */
-    void delete(Integer id);
+    void delete(String id);
 
 }

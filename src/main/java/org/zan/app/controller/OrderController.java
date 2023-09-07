@@ -1,16 +1,14 @@
 package org.zan.app.controller;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.zan.app.model.Order;
 import org.zan.app.dto.OrderRequestDTO;
 import org.zan.app.dto.OrderUpdateDTO;
 import org.zan.app.dto.CommonResponseDTO;
 import org.zan.app.service.OrderService;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -19,12 +17,12 @@ import java.util.Optional;
  * Exposes RESTful endpoints for creating, retrieving, updating, and deleting orders.
  * @author :Muhammad Fauzan
  */
-
 @RestController
 @RequestMapping("/api/v1/order")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
+
     /**
      * Endpoint for creating a new order.
      *
@@ -32,7 +30,7 @@ public class OrderController {
      * @return ResponseEntity containing a CommonResponseDTO with the created order and a success message.
      */
     @PostMapping
-    public ResponseEntity<CommonResponseDTO<Order>> create(@RequestBody @Validated OrderRequestDTO orderRequestDTO){
+    public ResponseEntity<CommonResponseDTO<Order>> create(@RequestBody OrderRequestDTO orderRequestDTO){
         Order order = orderService.create(orderRequestDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -70,7 +68,7 @@ public class OrderController {
      * @return ResponseEntity containing a CommonResponseDTO with the retrieved order and a success message.
      */
     @GetMapping("{id}")
-    public ResponseEntity<CommonResponseDTO<Optional<Order>>> getByid(@PathVariable Integer id){
+    public ResponseEntity<CommonResponseDTO<Optional<Order>>> getByid(@PathVariable String id){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
@@ -89,7 +87,7 @@ public class OrderController {
      * @return ResponseEntity containing a CommonResponseDTO with the updated order and a success message.
      */
     @PutMapping
-    public ResponseEntity<CommonResponseDTO<Order>> update(@RequestBody @Validated OrderUpdateDTO orderUpdateDTO){
+    public ResponseEntity<CommonResponseDTO<Order>> update(@RequestBody OrderUpdateDTO orderUpdateDTO){
         Order update = orderService.update(orderUpdateDTO);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -109,7 +107,7 @@ public class OrderController {
      * @return ResponseEntity indicating the success or failure of the deletion operation.
      */
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
+    public ResponseEntity<Void> delete(@PathVariable String id){
         orderService.delete(id);
         return ResponseEntity.ok().build();
     }

@@ -1,6 +1,6 @@
 package org.zan.app.service.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.sleuth.Span;
 import org.springframework.cloud.sleuth.Tracer;
@@ -24,7 +24,7 @@ import java.util.Optional;
  * @author Muhammad Fauzan
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
@@ -60,7 +60,7 @@ public class ItemServiceImpl implements ItemService {
      * @throws SampleCrudException if the item with the given ID is not found.
      */
     @Override
-    public Optional<Item> findById(Integer id) {
+    public Optional<Item> findById(String id) {
         Span span = tracer.spanBuilder().start();
         log.info("get item with id :"+ id);
         Optional<Item> item = itemRepository.findById(id);
@@ -96,7 +96,7 @@ public class ItemServiceImpl implements ItemService {
      * @throws SampleCrudException if the item with the given ID is not found.
      */
     @Override
-    public void delete(Integer id) {
+    public void delete(String id) {
         Span span = tracer.spanBuilder().start();
         log.info("start delete item with ID: "+id);
         Optional<Item> item = findById(id);

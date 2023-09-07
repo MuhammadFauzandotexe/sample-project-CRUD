@@ -30,7 +30,7 @@ public interface ItemService {
      * @param id The ID of the item to be retrieved.
      * @return The item found (if any).
      */
-    Optional<Item> findById(Integer id);
+    Optional<Item> findById(String id);
 
     /**
      * Updates an item based on the information from the ItemUpdateDTO.
@@ -45,6 +45,6 @@ public interface ItemService {
      *
      * @param id The ID of the item to be deleted.
      */
-    void delete(Integer id);
+    void delete(String id);
 
 }

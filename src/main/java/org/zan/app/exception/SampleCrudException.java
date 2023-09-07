@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
  *
  * @author Muhammad Fauzan
  */
-
 @Getter
 public class SampleCrudException extends RuntimeException {
     private final HttpStatus httpStatus;
@@ -28,6 +27,3 @@ public class SampleCrudException extends RuntimeException {
 
 
 
-//log4j2.xml
-//traceId, spanId
-//spring sleuth;

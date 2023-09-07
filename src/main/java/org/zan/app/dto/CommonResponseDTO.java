@@ -2,6 +2,8 @@ package org.zan.app.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents a common response data transfer object (DTO) used to encapsulate
@@ -10,7 +12,8 @@ import lombok.Data;
  *
  * @param <T> The type of data included in the response.
  */
-@Data
+@Getter
+@Setter
 @Builder(toBuilder = true)
 public class CommonResponseDTO<T> {
 

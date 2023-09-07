@@ -1,6 +1,7 @@
 package org.zan.app.service.impl;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ import java.util.Optional;
  * @author Muhammad Fauzan
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
@@ -66,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
      * @throws SampleCrudException if the order with the given ID is not found.
      */
     @Override
-    public Optional<Order> findById(Integer id) {
+    public Optional<Order> findById(String id) {
         log.info("get order with ID: "+id);
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (orderOptional.isEmpty()){
@@ -107,7 +108,7 @@ public class OrderServiceImpl implements OrderService {
      * @throws SampleCrudException if the order with the given ID is not found.
      */
     @Override
-    public void delete(Integer id) {
+    public void delete(String id) {
         log.info("start delete order with ID: "+id);
         Optional<Order> order = findById(id);
         if(order.isEmpty()){

@@ -1,7 +1,9 @@
 package org.zan.app.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +16,17 @@ import java.util.List;
  */
 @Entity
 @Table(name = "m_items")
-@SequenceGenerator(name = "item_sequence", sequenceName = "item_sequence")
-@Data
+@Getter
+@Setter
 public class Item {
 
     /**
      * The unique identifier of the item.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_sequence")
-    private Integer id;
+    @GenericGenerator(strategy = "uuid2", name = "system-uuid")
+    @GeneratedValue(generator = "system-uuid")
+    private String id;
 
     /**
      * The name of the item.

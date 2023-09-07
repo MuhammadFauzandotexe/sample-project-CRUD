@@ -3,12 +3,15 @@ package org.zan.app.dto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents a data transfer object (DTO) for creating or updating an item.
  * It includes information such as the item's name and price.
  */
-@Data
+@Getter
+@Setter
 public class ItemRequestDTO {
     /**
      * The name of the item. It should be a descriptive name for the item.

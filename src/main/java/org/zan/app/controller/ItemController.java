@@ -1,6 +1,7 @@
 package org.zan.app.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -20,8 +21,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/v1/item")
-@AllArgsConstructor
-@Validated
+@RequiredArgsConstructor
 public class ItemController {
     private final ItemService itemService;
 
@@ -31,10 +31,8 @@ public class ItemController {
      * @param itemRequestDTO The request body containing item details to be created.
      * @return ResponseEntity containing a CommonResponseDTO with the created item and a success message.
      */
-
     @PostMapping
-    public ResponseEntity<CommonResponseDTO<Item>> create(@RequestBody @Validated ItemRequestDTO itemRequestDTO){
-
+    public ResponseEntity<CommonResponseDTO<Item>> create(@RequestBody ItemRequestDTO itemRequestDTO){
         Item item = itemService.create(itemRequestDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -53,7 +51,7 @@ public class ItemController {
      * @return ResponseEntity containing a CommonResponseDTO with the retrieved item and a success message.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CommonResponseDTO<Item>> getById(@PathVariable Integer id){
+    public ResponseEntity<CommonResponseDTO<Item>> getById(@PathVariable String id){
         Optional<Item> item = itemService.findById(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -92,7 +90,7 @@ public class ItemController {
      * @return ResponseEntity containing a CommonResponseDTO with the updated item and a success message.
      */
     @PutMapping()
-    public ResponseEntity<CommonResponseDTO<Item>> update(@RequestBody @Validated ItemUpdateDTO item){
+    public ResponseEntity<CommonResponseDTO<Item>> update(@RequestBody ItemUpdateDTO item){
         Item update = itemService.update(item);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -112,7 +110,7 @@ public class ItemController {
      * @return ResponseEntity indicating the success or failure of the deletion operation.
      */
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
+    public ResponseEntity<Void> delete(@PathVariable String id){
         Optional<Item> item = itemService.findById(id);
         if (item.isPresent()){
             itemService.delete(id);
