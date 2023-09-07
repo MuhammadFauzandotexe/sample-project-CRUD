@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.zan.app.dto.ItemRequestDTO;
-import org.zan.app.entity.Item;
+import org.zan.app.model.Item;
 import org.zan.app.repository.ItemRepository;
 import java.util.ArrayList;
 import java.util.List;

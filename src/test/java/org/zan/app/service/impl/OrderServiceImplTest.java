@@ -7,8 +7,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.zan.app.dto.OrderRequestDTO;
 import org.zan.app.dto.OrderUpdateDTO;
-import org.zan.app.entity.Item;
-import org.zan.app.entity.Order;
+import org.zan.app.model.Item;
+import org.zan.app.model.Order;
 import org.zan.app.repository.OrderRepository;
 import org.zan.app.service.ItemService;
 

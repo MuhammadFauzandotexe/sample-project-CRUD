@@ -1,5 +1,5 @@
 package org.zan.app.service;
-import org.zan.app.entity.Order;
+import org.zan.app.model.Order;
 import org.zan.app.dto.OrderRequestDTO;
 import org.zan.app.dto.OrderUpdateDTO;
 import java.util.List;

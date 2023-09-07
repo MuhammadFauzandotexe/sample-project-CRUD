@@ -2,12 +2,13 @@ package org.zan.app.service.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.zan.app.entity.Item;
-import org.zan.app.entity.Order;
+import org.zan.app.exception.SampleCrudException;
+import org.zan.app.model.Item;
+import org.zan.app.model.Order;
 import org.zan.app.dto.OrderRequestDTO;
 import org.zan.app.dto.OrderUpdateDTO;
-import org.zan.app.exception.SampleAppException;
 import org.zan.app.repository.OrderRepository;
 import org.zan.app.service.ItemService;
 import org.zan.app.service.OrderService;
@@ -32,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * {@inheritDoc}
-     * @throws SampleAppException if the item with the given ID is not found.
+     * @throws  if the item with the given ID is not found.
      */
     @Override
     @Transactional(rollbackOn = Exception.class)
@@ -40,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
         Optional<Item> item  = itemService.findById(orderRequestDTO.getItemId());
         if (item.isEmpty()){
             log.error("item not found with ID: "+orderRequestDTO.getItemId());
-            throw new SampleAppException("Item not found with ID: "+orderRequestDTO.getItemId());
+            throw new SampleCrudException("Item not found with ID: "+orderRequestDTO.getItemId(),HttpStatus.NOT_FOUND);
         }
         Order order = new Order();
         order.setOrderNo(orderRequestDTO.getOrderNo());
@@ -62,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * {@inheritDoc}
-     * @throws SampleAppException if the order with the given ID is not found.
+     * @throws SampleCrudException if the order with the given ID is not found.
      */
     @Override
     public Optional<Order> findById(Integer id) {
@@ -70,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
         Optional<Order> orderOptional = orderRepository.findById(id);
         if (orderOptional.isEmpty()){
             log.error("order not found with ID: "+id);
-            throw new SampleAppException("order not found with ID: "+id);
+            throw new SampleCrudException("order not found with ID: "+id,HttpStatus.NOT_FOUND);
         }
         log.info("success get order with ID: "+id);
         return orderOptional;
@@ -78,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      *{@inheritDoc}
-     * @throws SampleAppException if the order with the given ID is not found or
+     * @throws SampleCrudException if the order with the given ID is not found or
      * if the item with the given ID is not found .
      */
     @Override
@@ -88,12 +89,12 @@ public class OrderServiceImpl implements OrderService {
         Optional<Order> orderOptional = findById(orderUpdateDTO.getId());
         if (orderOptional.isEmpty()) {
             log.error("order not found with ID: "+orderUpdateDTO.getId());
-            throw new SampleAppException("order not found with ID: "+orderUpdateDTO.getId());
+            throw new SampleCrudException("order not found with ID: "+orderUpdateDTO.getId());
         }
         Optional<Item> itemOptional = itemService.findById(orderUpdateDTO.getItemId());
         if (itemOptional.isEmpty()){
             log.error("order not found with ID: "+orderUpdateDTO.getItemId());
-            throw new SampleAppException("order not found with ID: "+orderUpdateDTO.getItemId());
+            throw new SampleCrudException("order not found with ID: "+orderUpdateDTO.getItemId(),HttpStatus.NOT_FOUND);
         }
         orderOptional.get().setItems(List.of(itemOptional.get()));
         orderOptional.get().setOrderNo(orderUpdateDTO.getOrderNo());
@@ -103,7 +104,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * {@inheritDoc}
-     * @throws SampleAppException if the order with the given ID is not found.
+     * @throws SampleCrudException if the order with the given ID is not found.
      */
     @Override
     public void delete(Integer id) {
@@ -111,7 +112,7 @@ public class OrderServiceImpl implements OrderService {
         Optional<Order> order = findById(id);
         if(order.isEmpty()){
             log.error("order not found with ID: "+id);
-            throw new SampleAppException("order not found with ID: "+id);
+            throw new SampleCrudException("order not found with ID: "+id, HttpStatus.NOT_FOUND);
         }
         orderRepository.delete(order.get());
         log.info("success delete order with ID: "+id);

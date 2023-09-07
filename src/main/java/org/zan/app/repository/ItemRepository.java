@@ -1,11 +1,11 @@
 package org.zan.app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.zan.app.entity.Item;
+import org.zan.app.model.Item;
 
 /**
  * Repository for Item
- * @author nathan
+ * @author :Muhammad Fauzan
  */
 public interface ItemRepository extends JpaRepository<Item,Integer> {
 }

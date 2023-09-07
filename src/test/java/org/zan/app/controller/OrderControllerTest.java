@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.zan.app.dto.OrderRequestDTO;
 import org.zan.app.dto.OrderUpdateDTO;
-import org.zan.app.entity.Order;
+import org.zan.app.model.Order;
 import org.zan.app.dto.CommonResponseDTO;
 import org.zan.app.service.OrderService;
 import java.util.ArrayList;

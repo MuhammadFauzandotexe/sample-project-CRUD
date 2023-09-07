@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.zan.app.dto.ItemRequestDTO;
 import org.zan.app.dto.ItemUpdateDTO;
-import org.zan.app.entity.Item;
+import org.zan.app.model.Item;
 import org.zan.app.dto.CommonResponseDTO;
 import org.zan.app.service.ItemService;
 

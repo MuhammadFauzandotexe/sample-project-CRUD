@@ -1,7 +1,7 @@
 package org.zan.app.service;
 
 import org.zan.app.dto.ItemUpdateDTO;
-import org.zan.app.entity.Item;
+import org.zan.app.model.Item;
 import org.zan.app.dto.ItemRequestDTO;
 
 import java.util.List;

@@ -24,6 +24,10 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'jakarta.platform:jakarta.jakartaee-api:9.1.0'
+	implementation 'org.hibernate.validator:hibernate-validator:7.0.2.Final'
+	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth:3.1.9'
+	implementation 'ch.qos.logback:logback-classic'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.postgresql:postgresql'
