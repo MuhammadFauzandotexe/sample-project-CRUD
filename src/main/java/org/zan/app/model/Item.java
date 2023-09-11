@@ -3,10 +3,10 @@ package org.zan.app.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Represents an item entity in the application.
@@ -24,9 +24,10 @@ public class Item {
      * The unique identifier of the item.
      */
     @Id
-    @GenericGenerator(strategy = "uuid2", name = "system-uuid")
-    @GeneratedValue(generator = "system-uuid")
-    private String id;
+    @Column(columnDefinition = "uuid", updatable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
 
     /**
      * The name of the item.

@@ -2,8 +2,8 @@ package org.zan.app.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.sleuth.Span;
-import org.springframework.cloud.sleuth.Tracer;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.zan.app.dto.ItemUpdateDTO;
@@ -14,6 +14,7 @@ import org.zan.app.repository.ItemRepository;
 import org.zan.app.service.ItemService;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * This is the implementation class for the item service.
@@ -28,18 +29,19 @@ import java.util.Optional;
 @Slf4j
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
-    private final Tracer tracer;
+    private static final Marker TRANSACTION = MarkerManager.getMarker("TRANSACTION");
+
     /**
      * {@inheritDoc}
      */
     @Override
     public Item create(ItemRequestDTO itemRequestDTO) {
-        Span span = tracer.spanBuilder().start();
+        log.info(TRANSACTION+ " start create item "+TRANSACTION);
         Item item = new Item();
         item.setPrice(itemRequestDTO.getPrice());
         item.setName(itemRequestDTO.getName());
         Item itemCreated = itemRepository.saveAndFlush(item);
-        span.end();
+        log.info(TRANSACTION+ " success create item with id: "+itemCreated.getId());
         return itemCreated;
     }
 
@@ -48,10 +50,9 @@ public class ItemServiceImpl implements ItemService {
      */
     @Override
     public List<Item> getAll() {
-        Span span = tracer.spanBuilder().start();
-        log.info("get all item");
+        log.info(TRANSACTION+ " get all item");
         List<Item> items = itemRepository.findAll();
-        span.end();
+        log.info(TRANSACTION+ " success get all items");
         return items;
     }
 
@@ -60,14 +61,12 @@ public class ItemServiceImpl implements ItemService {
      * @throws SampleCrudException if the item with the given ID is not found.
      */
     @Override
-    public Optional<Item> findById(String id) {
-        Span span = tracer.spanBuilder().start();
-        log.info("get item with id :"+ id);
+    public Optional<Item> findById(UUID id) {
+        log.info(TRANSACTION+ " get item with id :"+ id);
         Optional<Item> item = itemRepository.findById(id);
         if(item.isEmpty()){
-            throw new SampleCrudException("item not found with ID: "+id,HttpStatus.NOT_FOUND);
+            throw new SampleCrudException(" item not found with ID: "+id,HttpStatus.NOT_FOUND);
         }
-        span.end();
         return item;
     }
 
@@ -77,17 +76,15 @@ public class ItemServiceImpl implements ItemService {
      */
     @Override
     public Item update(ItemUpdateDTO itemUpdateDTO) {
-        Span span = tracer.spanBuilder().start();
-        log.info("start update item with ID: "+ itemUpdateDTO.getId());
+        log.info(TRANSACTION+ " start update item with ID: "+ itemUpdateDTO.getId());
         Optional<Item> itemOptional = findById(itemUpdateDTO.getId());
         if (itemOptional.isEmpty()){
-            throw new SampleCrudException("item not found with ID: "+itemUpdateDTO.getId(),HttpStatus.NOT_FOUND);
+            throw new SampleCrudException(" item not found with ID: "+itemUpdateDTO.getId(),HttpStatus.NOT_FOUND);
         }
         itemOptional.get().setName(itemUpdateDTO.getName());
         itemOptional.get().setPrice(itemUpdateDTO.getPrice());
         Item itemUpdate = itemRepository.save(itemOptional.get());
-        log.info("success update item with ID: "+itemUpdateDTO.getId());
-        span.end();
+        log.info(TRANSACTION+ " success update item with ID: "+itemUpdateDTO.getId());
         return itemUpdate;
     }
     
@@ -96,15 +93,13 @@ public class ItemServiceImpl implements ItemService {
      * @throws SampleCrudException if the item with the given ID is not found.
      */
     @Override
-    public void delete(String id) {
-        Span span = tracer.spanBuilder().start();
-        log.info("start delete item with ID: "+id);
+    public void delete(UUID id) {
+        log.info(TRANSACTION+ " start delete item with ID: "+id);
         Optional<Item> item = findById(id);
         if(item.isEmpty()){
             throw new SampleCrudException("item not found with ID: "+id, HttpStatus.NOT_FOUND);
         }
         itemRepository.deleteById(id);
-        log.info("success delete item with ID: "+id);
-        span.end();
+        log.info(TRANSACTION+ " success delete item with ID: "+id);
     }
 }

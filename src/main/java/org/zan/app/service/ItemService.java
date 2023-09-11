@@ -6,6 +6,7 @@ import org.zan.app.dto.ItemRequestDTO;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface ItemService {
 
@@ -30,7 +31,7 @@ public interface ItemService {
      * @param id The ID of the item to be retrieved.
      * @return The item found (if any).
      */
-    Optional<Item> findById(String id);
+    Optional<Item> findById(UUID id);
 
     /**
      * Updates an item based on the information from the ItemUpdateDTO.
@@ -45,6 +46,6 @@ public interface ItemService {
      *
      * @param id The ID of the item to be deleted.
      */
-    void delete(String id);
+    void delete(UUID id);
 
 }

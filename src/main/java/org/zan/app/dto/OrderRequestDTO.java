@@ -1,11 +1,13 @@
 package org.zan.app.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.UUID;
 
 /**
  * Data Transfer Object (DTO) representing an order request.
@@ -18,19 +20,15 @@ public class OrderRequestDTO {
     /**
      * The ID of the item to be ordered.
      */
-    @JsonProperty("item_id")
-    private String itemId;
+    private UUID itemId;
 
     /**
-     * The quantity of the item to be ordered. It should be a non-negative integer.
+     * The quantity of the item to be ordered.
      */
-    @NotNull(message = "Quantity cannot be null")
-    @Min(value = 1, message = "Quantity must be a non-negative integer")
     private Integer quantity;;
 
     /**
      * The order number associated with the order request.
      */
-    @JsonProperty("order_no")
     private String orderNo;
 }

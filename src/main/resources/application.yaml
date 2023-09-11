@@ -9,8 +9,17 @@ spring:
       hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-      ddl-auto: create-drop
-    show-sql: true
+      ddl-auto: update
+    show-sql: false
+  application:
+    name: SampleProjectCrudApp
+  sleuth:
+    sampler:
+      probability: 1.0
+server:
+  error:
+    include-stacktrace: never
+
 
 # H2 Database Configuration (Commented Out)
 #spring:
@@ -23,8 +32,3 @@ spring:
 #    console:
 #      enabled: true
 #      path: /h2-console
-
-server:
-  error:
-    include-stacktrace: never
-

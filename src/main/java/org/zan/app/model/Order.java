@@ -1,16 +1,12 @@
 package org.zan.app.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Represents an order entity in the application.
@@ -28,10 +24,9 @@ public class Order {
      * The unique identifier of the order.
      */
     @Id
-    @GenericGenerator(strategy = "uuid2", name = "system-uuid")
-    @GeneratedValue(generator = "system-uuid")
-    private String id;
-
+    @Column(columnDefinition = "uuid", updatable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     /**
      * The order number.
@@ -40,10 +35,7 @@ public class Order {
 
     /**
      * The quantity of items in the order.
-     * It cannot be null and must be a non-negative integer.
      */
-    @NotNull(message = "Quantity cannot be null")
-    @Min(value = 0, message = "Quantity must be a non-negative integer")
     private Integer quantity;
 
     /**

@@ -1,10 +1,9 @@
 package org.zan.app.controller;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.zan.app.dto.ItemUpdateDTO;
 import org.zan.app.model.Item;
@@ -13,6 +12,7 @@ import org.zan.app.dto.CommonResponseDTO;
 import org.zan.app.service.ItemService;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Controller class for managing item-related operations.
@@ -31,7 +31,8 @@ public class ItemController {
      * @param itemRequestDTO The request body containing item details to be created.
      * @return ResponseEntity containing a CommonResponseDTO with the created item and a success message.
      */
-    @PostMapping
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/create")
     public ResponseEntity<CommonResponseDTO<Item>> create(@RequestBody ItemRequestDTO itemRequestDTO){
         Item item = itemService.create(itemRequestDTO);
         return ResponseEntity
@@ -51,7 +52,7 @@ public class ItemController {
      * @return ResponseEntity containing a CommonResponseDTO with the retrieved item and a success message.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CommonResponseDTO<Item>> getById(@PathVariable String id){
+    public ResponseEntity<CommonResponseDTO<Item>> getById(@PathVariable UUID id){
         Optional<Item> item = itemService.findById(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -85,7 +86,6 @@ public class ItemController {
 
     /**
      * Endpoint for updating an existing item.
-     *
      * @param item The request body containing item details to be updated.
      * @return ResponseEntity containing a CommonResponseDTO with the updated item and a success message.
      */
@@ -105,12 +105,11 @@ public class ItemController {
 
     /**
      * Endpoint for deleting an item by its ID.
-     *
      * @param id The unique identifier of the item to be deleted.
      * @return ResponseEntity indicating the success or failure of the deletion operation.
      */
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id){
         Optional<Item> item = itemService.findById(id);
         if (item.isPresent()){
             itemService.delete(id);

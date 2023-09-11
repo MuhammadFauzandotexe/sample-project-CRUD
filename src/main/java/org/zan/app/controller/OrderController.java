@@ -11,6 +11,7 @@ import org.zan.app.dto.CommonResponseDTO;
 import org.zan.app.service.OrderService;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Controller class for managing order-related operations.
@@ -29,7 +30,7 @@ public class OrderController {
      * @param orderRequestDTO The request body containing order details to be created.
      * @return ResponseEntity containing a CommonResponseDTO with the created order and a success message.
      */
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<CommonResponseDTO<Order>> create(@RequestBody OrderRequestDTO orderRequestDTO){
         Order order = orderService.create(orderRequestDTO);
         return ResponseEntity
@@ -67,8 +68,8 @@ public class OrderController {
      * @param id The unique identifier of the order.
      * @return ResponseEntity containing a CommonResponseDTO with the retrieved order and a success message.
      */
-    @GetMapping("{id}")
-    public ResponseEntity<CommonResponseDTO<Optional<Order>>> getByid(@PathVariable String id){
+    @GetMapping("/{id}")
+    public ResponseEntity<CommonResponseDTO<Optional<Order>>> getById(@PathVariable UUID id){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
@@ -106,8 +107,8 @@ public class OrderController {
      * @param id The unique identifier of the order to be deleted.
      * @return ResponseEntity indicating the success or failure of the deletion operation.
      */
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id){
         orderService.delete(id);
         return ResponseEntity.ok().build();
     }
