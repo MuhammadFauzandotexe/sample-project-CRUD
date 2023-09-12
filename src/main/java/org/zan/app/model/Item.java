@@ -1,11 +1,8 @@
 package org.zan.app.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
 import java.util.UUID;
 
 /**
@@ -25,9 +22,8 @@ public class Item {
      */
     @Id
     @Column(columnDefinition = "uuid", updatable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
 
     /**
      * The name of the item.
@@ -39,13 +35,6 @@ public class Item {
      */
     private Integer price;
 
-    /**
-     * The list of orders that include this item.
-     * This is a many-to-many relationship, and it is mapped by the "items" property in the "Order" entity.
-     */
-    @ManyToMany(mappedBy = "items")
-    @JsonBackReference
-    private List<Order> orders = new ArrayList<>();
 }
 
 

@@ -1,0 +1,46 @@
+[INFO ] 2023-09-12T11:09:55.075 [] [] SampleProjectCrudApplication - Starting SampleProjectCrudApplication using Java 17.0.8 with PID 21968 (C:\Dev\sample-project-CRUD\build\classes\java\main started by obsli in C:\Dev\sample-project-CRUD)
+[INFO ] 2023-09-12T11:09:55.081 [] [] SampleProjectCrudApplication - No active profile set, falling back to 1 default profile: "default"
+[INFO ] 2023-09-12T11:09:55.774 [] [] RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[INFO ] 2023-09-12T11:09:55.818 [] [] RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 3 JPA repository interfaces.
+[INFO ] 2023-09-12T11:09:56.171 [] [] TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[INFO ] 2023-09-12T11:09:56.179 [] [] Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 2023-09-12T11:09:56.180 [] [] StandardService - Starting service [Tomcat]
+[INFO ] 2023-09-12T11:09:56.180 [] [] StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.12]
+[INFO ] 2023-09-12T11:09:56.252 [] [] [/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 2023-09-12T11:09:56.252 [] [] ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1134 ms
+[INFO ] 2023-09-12T11:09:56.502 [] [] LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[INFO ] 2023-09-12T11:09:56.567 [] [] Version - HHH000412: Hibernate ORM core version 6.2.7.Final
+[INFO ] 2023-09-12T11:09:56.569 [] [] Environment - HHH000406: Using bytecode reflection optimizer
+[INFO ] 2023-09-12T11:09:56.659 [] [] BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+[INFO ] 2023-09-12T11:09:56.785 [] [] SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+[INFO ] 2023-09-12T11:09:56.804 [] [] HikariDataSource - HikariPool-1 - Starting...
+[INFO ] 2023-09-12T11:09:56.971 [] [] HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4c8abec7
+[INFO ] 2023-09-12T11:09:56.972 [] [] HikariDataSource - HikariPool-1 - Start completed.
+[INFO ] 2023-09-12T11:09:57.180 [] [] BytecodeProviderInitiator - HHH000021: Bytecode provider name : bytebuddy
+[INFO ] 2023-09-12T11:09:57.726 [] [] JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[WARN ] 2023-09-12T11:09:57.743 [] [] SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+[WARN ] 2023-09-12T11:09:57.744 [] [] SqlExceptionHelper - relation "order_detail_item" does not exist, skipping
+[WARN ] 2023-09-12T11:09:57.745 [] [] SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+[WARN ] 2023-09-12T11:09:57.745 [] [] SqlExceptionHelper - relation "order_detail_item" does not exist, skipping
+[WARN ] 2023-09-12T11:09:57.746 [] [] SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+[WARN ] 2023-09-12T11:09:57.746 [] [] SqlExceptionHelper - relation "t_order_detail" does not exist, skipping
+[WARN ] 2023-09-12T11:09:57.746 [] [] SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+[WARN ] 2023-09-12T11:09:57.746 [] [] SqlExceptionHelper - table "m_items" does not exist, skipping
+[WARN ] 2023-09-12T11:09:57.747 [] [] SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+[WARN ] 2023-09-12T11:09:57.747 [] [] SqlExceptionHelper - table "order_detail_item" does not exist, skipping
+[WARN ] 2023-09-12T11:09:57.747 [] [] SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+[WARN ] 2023-09-12T11:09:57.747 [] [] SqlExceptionHelper - table "t_order" does not exist, skipping
+[WARN ] 2023-09-12T11:09:57.748 [] [] SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+[WARN ] 2023-09-12T11:09:57.748 [] [] SqlExceptionHelper - table "t_order_detail" does not exist, skipping
+[INFO ] 2023-09-12T11:09:57.770 [] [] LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[WARN ] 2023-09-12T11:09:58.050 [] [] JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[INFO ] 2023-09-12T11:09:58.402 [] [] EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+[INFO ] 2023-09-12T11:09:58.449 [] [] Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[INFO ] 2023-09-12T11:09:58.464 [] [] TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[INFO ] 2023-09-12T11:09:58.474 [] [] SampleProjectCrudApplication - Started SampleProjectCrudApplication in 3.689 seconds (process running for 4.765)
+[INFO ] 2023-09-12T11:09:58.963 [] [] [/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[INFO ] 2023-09-12T11:09:58.963 [] [] DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[INFO ] 2023-09-12T11:09:58.965 [] [] DispatcherServlet - Completed initialization in 1 ms
+[INFO ] 2023-09-12T11:10:17.553 [] [] LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] 2023-09-12T11:10:17.566 [] [] HikariDataSource - HikariPool-1 - Shutdown initiated...
+[INFO ] 2023-09-12T11:10:17.569 [] [] HikariDataSource - HikariPool-1 - Shutdown completed.

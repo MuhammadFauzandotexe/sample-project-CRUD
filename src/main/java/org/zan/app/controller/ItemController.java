@@ -3,7 +3,6 @@ package org.zan.app.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.zan.app.dto.ItemUpdateDTO;
 import org.zan.app.model.Item;
@@ -11,7 +10,6 @@ import org.zan.app.dto.ItemRequestDTO;
 import org.zan.app.dto.CommonResponseDTO;
 import org.zan.app.service.ItemService;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -31,7 +29,6 @@ public class ItemController {
      * @param itemRequestDTO The request body containing item details to be created.
      * @return ResponseEntity containing a CommonResponseDTO with the created item and a success message.
      */
-    @PreAuthorize("hasRole('USER')")
     @PostMapping("/create")
     public ResponseEntity<CommonResponseDTO<Item>> create(@RequestBody ItemRequestDTO itemRequestDTO){
         Item item = itemService.create(itemRequestDTO);
@@ -53,14 +50,14 @@ public class ItemController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<CommonResponseDTO<Item>> getById(@PathVariable UUID id){
-        Optional<Item> item = itemService.findById(id);
+        Item item = itemService.findById(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
                         CommonResponseDTO.<Item>builder()
                                 .statusCode(HttpStatus.OK.value())
                                 .message("Success")
-                                .data(item.get())
+                                .data(item)
                                 .build()
                 );
     }
@@ -110,12 +107,8 @@ public class ItemController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id){
-        Optional<Item> item = itemService.findById(id);
-        if (item.isPresent()){
-            itemService.delete(id);
-            return ResponseEntity.ok().build();
-        }
-        else return ResponseEntity.notFound().build();
+        itemService.delete(id);
+        return ResponseEntity.ok().build();
     }
 
 }

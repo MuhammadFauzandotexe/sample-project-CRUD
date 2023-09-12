@@ -1,0 +1,3 @@
+[INFO ] 2023-09-12T11:22:58.212 [] [] LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+[INFO ] 2023-09-12T11:22:58.224 [] [] HikariDataSource - HikariPool-1 - Shutdown initiated...
+[INFO ] 2023-09-12T11:22:58.228 [] [] HikariDataSource - HikariPool-1 - Shutdown completed.

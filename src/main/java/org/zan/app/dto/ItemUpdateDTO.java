@@ -1,11 +1,6 @@
 package org.zan.app.dto;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.UUID;
 
 /**

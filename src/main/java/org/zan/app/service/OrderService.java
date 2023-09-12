@@ -3,7 +3,6 @@ import org.zan.app.model.Order;
 import org.zan.app.dto.OrderRequestDTO;
 import org.zan.app.dto.OrderUpdateDTO;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface OrderService {
@@ -29,7 +28,7 @@ public interface OrderService {
      * @param id The ID of the order to be retrieved.
      * @return The order found (if any).
      */
-    Optional<Order> findById(UUID id);
+    Order findById(UUID id);
 
     /**
      * Updates an order based on the information from the OrderUpdateDTO.

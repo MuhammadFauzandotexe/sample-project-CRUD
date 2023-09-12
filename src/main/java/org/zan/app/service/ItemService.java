@@ -5,10 +5,16 @@ import org.zan.app.model.Item;
 import org.zan.app.dto.ItemRequestDTO;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface ItemService {
+    /**
+     * Saves an item in the database.
+     *
+     * @param item The item to be saved.
+     * @return The saved item.
+     */
+    Item save(Item item);
 
     /**
      * Creates a new item based on the data from the ItemRequestDTO.
@@ -31,7 +37,7 @@ public interface ItemService {
      * @param id The ID of the item to be retrieved.
      * @return The item found (if any).
      */
-    Optional<Item> findById(UUID id);
+    Item findById(UUID id);
 
     /**
      * Updates an item based on the information from the ItemUpdateDTO.

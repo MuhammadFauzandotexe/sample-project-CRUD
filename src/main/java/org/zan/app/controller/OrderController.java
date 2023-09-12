@@ -10,7 +10,6 @@ import org.zan.app.dto.OrderUpdateDTO;
 import org.zan.app.dto.CommonResponseDTO;
 import org.zan.app.service.OrderService;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -31,12 +30,12 @@ public class OrderController {
      * @return ResponseEntity containing a CommonResponseDTO with the created order and a success message.
      */
     @PostMapping("/create")
-    public ResponseEntity<CommonResponseDTO<Order>> create(@RequestBody OrderRequestDTO orderRequestDTO){
+    public ResponseEntity<CommonResponseDTO<?>> create(@RequestBody OrderRequestDTO orderRequestDTO){
         Order order = orderService.create(orderRequestDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(
-                        CommonResponseDTO.<Order>builder()
+                        CommonResponseDTO.builder()
                                 .statusCode(HttpStatus.CREATED.value())
                                 .message("Success")
                                 .data(order)
@@ -69,11 +68,11 @@ public class OrderController {
      * @return ResponseEntity containing a CommonResponseDTO with the retrieved order and a success message.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<CommonResponseDTO<Optional<Order>>> getById(@PathVariable UUID id){
+    public ResponseEntity<CommonResponseDTO<Order>> getById(@PathVariable UUID id){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
-                        CommonResponseDTO.<Optional<Order>>builder()
+                        CommonResponseDTO.<Order>builder()
                                 .statusCode(HttpStatus.OK.value())
                                 .message("Success")
                                 .data(orderService.findById(id))
